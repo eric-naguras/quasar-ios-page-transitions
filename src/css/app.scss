@@ -1,0 +1,21 @@
+// app global css in SCSS form
+
+// layout
+.q-footer {
+  z-index: 3000;
+}
+
+// page
+.page {
+  z-index: 2000;
+  &-body {
+    &-spacer {
+      &-header {
+        height: 51px;
+      }
+      &-footer {
+        height: 73px;
+      }
+    }
+  }
+}
