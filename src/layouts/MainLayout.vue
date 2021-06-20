@@ -9,7 +9,7 @@
         indicator-color="transparent"
         class="text-grey"
       >
-        <q-route-tab to="/home" label="Home" icon="las la-home" />
+        <!-- <q-route-tab to="/home" label="Home" icon="las la-home" /> -->
       </q-tabs>
     </q-footer>
 
