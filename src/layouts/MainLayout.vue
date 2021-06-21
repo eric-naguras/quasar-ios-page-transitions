@@ -1,7 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-
-
     <q-footer bordered class="bg-white text-primary">
       <q-tabs
         no-caps
@@ -20,9 +18,15 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
   name: "MainLayout",
 
-  setup() {},
+  setup() {
+    let themeColor = ref("light");
+    let textSize = ref("md");
+    document.body.setAttribute("data-theme", themeColor.value);
+    document.body.setAttribute("data-text-size", textSize.value);
+  },
 };
 </script>

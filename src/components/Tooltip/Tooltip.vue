@@ -1,48 +1,102 @@
 <template>
-  <q-tooltip class="tooltip" :class="`tooltip-arrow-${ arrowClass }`">
-    <div class="tooltip-text bg-grey-10 text-body1 text-bold relative-position">
+  <q-tooltip
+    @show="onShow"
+    ref="tooltipRef"
+    class="tooltip"
+    :class="`tooltip-arrow-${arrowClass}`"
+  >
+    <div class="tooltip-close tooltip-text text-body1 text-bold relative-position" :class="`bg-${bgColor} text-${color}`">
       <slot />
+      <q-btn
+        v-if="closeable"
+        @click.prevent="closeTooltip"
+        icon="close"
+        class="absolute-top-right"
+        size="sm"
+        dense
+        round
+      ></q-btn>
     </div>
-    <div class="tooltip-arrow bg-grey-10 absolute"></div>
+    <div class="tooltip-arrow absolute" :class="`bg-${bgColor} text-${color}`" />
   </q-tooltip>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from "vue";
 export default {
   props: {
     arrow: {
       type: String,
-      default: 'top'
+      default: "top",
     },
     duration: {
       type: Number,
-      default: null
+      default: null,
+    },
+    closeable: {
+      type: Boolean,
+      default: false,
+    },
+    bgColor: {
+      type: String,
+      default: 'grey-10'
+    },
+    color: {
+      type: String,
+      default: 'white'
     }
   },
   setup(props) {
+    const tooltipRef = ref(null);
+
+    const closeTooltip = () => {
+      tooltipRef.value.hide();
+    }
+
+    const onShow = () => {
+      if (props.duration) {
+        setTimeout(() => {
+          tooltipRef.value.hide();
+        }, props.duration);
+      }
+    };
+
     const arrowClass = computed(() => {
-      let arrowClassCorrected =  props.arrow.replace(' ', '-')
+      let arrowClassCorrected = props.arrow.replace(" ", "-");
       const allowedClasses = [
-        'top', 'top-left', 'top-right',
-        'bottom', 'bottom-left', 'bottom-right',
-        'left', 'left-top', 'left-bottom',
-        'right', 'right-top', 'right-bottom'
-      ]
+        "top",
+        "top-left",
+        "top-right",
+        "bottom",
+        "bottom-left",
+        "bottom-right",
+        "left",
+        "left-top",
+        "left-bottom",
+        "right",
+        "right-top",
+        "right-bottom",
+      ];
 
       if (!allowedClasses.includes(arrowClassCorrected)) {
-        console.error(`Value "${arrowClassCorrected}" not allowed for "arrow" prop.
-        Used one of these (with or without dashes):`, allowedClasses)
-        arrowClassCorrected = 'top'
+        console.error(
+          `Value "${arrowClassCorrected}" not allowed for "arrow" prop.
+        Used one of these (with or without dashes):`,
+          allowedClasses
+        );
+        arrowClassCorrected = "top";
       }
 
-      return arrowClassCorrected
-    })
+      return arrowClassCorrected;
+    });
 
     return {
-      arrowClass
-    }
-  }
+      arrowClass,
+      onShow,
+      tooltipRef,
+      closeTooltip
+    };
+  },
 };
 </script>
 
@@ -100,7 +154,7 @@ $box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.5);
       right: 0%;
     }
 
-     // left arrows
+    // left arrows
     [class*="tooltip-arrow-left"] & {
       transform: translateY(-50%) rotate(45deg) skew(-20deg, -20deg);
       left: 0%;
@@ -109,11 +163,11 @@ $box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.5);
       top: 50%;
     }
 
-     .tooltip-arrow-left-top & {
+    .tooltip-arrow-left-top & {
       top: 25%;
     }
 
-     .tooltip-arrow-left-bottom & {
+    .tooltip-arrow-left-bottom & {
       bottom: -20%;
     }
 
@@ -126,13 +180,16 @@ $box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.5);
       top: 50%;
     }
 
-     .tooltip-arrow-right-top & {
+    .tooltip-arrow-right-top & {
       top: 25%;
     }
 
-     .tooltip-arrow-right-bottom & {
+    .tooltip-arrow-right-bottom & {
       bottom: -20%;
     }
+  }
+  &-close {
+    pointer-events: all;
   }
 }
 </style>

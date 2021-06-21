@@ -18,6 +18,10 @@ const routes = [
         path: "/tooltips",
         component: () => import("src/pages/Tooltips/Tooltips.vue"),
       },
+      {
+        path: "/settings",
+        component: () => import("src/pages/Settings/Settings.vue"),
+      },
     ],
   },
 
