@@ -1,23 +1,26 @@
 {
-  "name": "quasar-ios-page-transitions",
+  "name": "musical-website-v3",
   "version": "0.0.1",
-  "description": "Some tests, might be used in musical website",
-  "productName": "Quasar App",
+  "description": "Website for musicaltheatersongs.com",
+  "productName": "musicaltheatersongs.com",
   "author": "Eric <eric@naguras.com>",
   "private": true,
   "scripts": {
-    "dev": "quasar dev -m ssr",
+    "build": "quasar build -m ssr",
+    "dev": "quasar dev",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.10.8",
+    "@quasar/extras": "^1.10.7",
+    "axios": "^0.21.1",
     "core-js": "^3.15.1",
-    "quasar": "^2.0.1"
+    "dotenv": "^10.0.0",
+    "quasar": "^2.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
-    "@quasar/app": "^3.0.1",
+    "@quasar/app": "^3.0.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.12.1",
